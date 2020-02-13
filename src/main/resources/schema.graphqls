@@ -1,0 +1,13 @@
+type Airport {
+    iataCode: String,
+    name: String,
+    seoName: String,
+    countryCode: String,
+    regionCode: String,
+    cityCode: String,
+    currencyCode: String,
+}
+
+type Query {
+    airports: [Airport]
+}
