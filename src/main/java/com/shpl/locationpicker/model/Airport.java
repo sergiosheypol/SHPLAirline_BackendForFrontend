@@ -1,12 +1,11 @@
 package com.shpl.locationpicker.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -20,5 +19,5 @@ public class Airport {
     private String regionCode;
     private String cityCode;
     private String currencyCode;
-    private String[] routes;
+    private List<String> routes;
 }

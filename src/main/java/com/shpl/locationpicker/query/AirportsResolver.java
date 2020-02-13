@@ -18,4 +18,8 @@ public class AirportsResolver implements GraphQLQueryResolver {
         return airportsService.getAirports().collectList().block();
     }
 
+    public Airport getAirport(final String iataCode) {
+        return airportsService.getAirport(iataCode).block();
+    }
+
 }

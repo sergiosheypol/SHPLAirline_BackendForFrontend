@@ -27,9 +27,18 @@ public class AirportProvider  {
 
         URI uri = URI.create(airportProperties.getEndpoint());
 
-        Flux<Airport> airportsList =
-                webClient.method(HttpMethod.GET).uri(uri).retrieve().bodyToFlux(Airport.class);
+        return webClient.method(HttpMethod.GET).uri(uri).retrieve().bodyToFlux(Airport.class);
+    }
 
-        return airportsList;
+    public Mono<Airport> getAirport(final String iataCode) {
+        URI uri = URI.create(airportProperties.getEndpoint());
+
+        return Mono.from(
+                webClient.method(HttpMethod.GET)
+                        .uri(uri)
+                        .retrieve()
+                        .bodyToFlux(Airport.class)
+                        .filter(airport -> airport.getIataCode().equals(iataCode)));
+
     }
 }

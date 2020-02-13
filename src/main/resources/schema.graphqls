@@ -6,8 +6,10 @@ type Airport {
     regionCode: String,
     cityCode: String,
     currencyCode: String,
+    routes: [String]
 }
 
 type Query {
     airports: [Airport]
+    airport(iataCode: String): Airport
 }
