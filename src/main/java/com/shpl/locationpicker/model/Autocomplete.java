@@ -15,4 +15,6 @@ public class Autocomplete {
     private String code;
     private String name;
     private Map<String, String> city;
+    private Map<String, String> coordinates;
+    private Map<String, String> country;
 }
