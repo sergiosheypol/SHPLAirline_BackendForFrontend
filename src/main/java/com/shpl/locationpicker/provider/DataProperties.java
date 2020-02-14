@@ -13,4 +13,5 @@ public class DataProperties {
     private String airports;
     private String countries;
     private String autocomplete;
+    private String cities;
 }

@@ -1,10 +1,11 @@
-package com.shpl.locationpicker.query;
+package com.shpl.locationpicker.resolver;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
 import com.shpl.locationpicker.model.Autocomplete;
 import com.shpl.locationpicker.model.City;
 import com.shpl.locationpicker.model.Coordinates;
 import com.shpl.locationpicker.model.Country;
+import com.shpl.locationpicker.service.CitiesService;
 import com.shpl.locationpicker.service.CountriesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,12 +15,10 @@ import org.springframework.stereotype.Component;
 public class AutocompleteResolver implements GraphQLResolver<Autocomplete> {
 
     private final CountriesService countriesService;
+    private final CitiesService citiesService;
 
     public City getCity(Autocomplete autocomplete) {
-        return City.builder()
-                .code(autocomplete.getCity().get("code"))
-                .name(autocomplete.getCity().get("name"))
-                .build();
+        return citiesService.getCity(autocomplete.getCity().get("code"));
     }
 
     public Country getCountry(Autocomplete autocomplete) {

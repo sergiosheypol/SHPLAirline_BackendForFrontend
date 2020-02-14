@@ -2,6 +2,7 @@ package com.shpl.locationpicker.provider;
 
 import com.shpl.locationpicker.model.Airport;
 import com.shpl.locationpicker.model.Autocomplete;
+import com.shpl.locationpicker.model.City;
 import com.shpl.locationpicker.model.Country;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -65,4 +66,19 @@ public class DataProvider {
                 .bodyToFlux(Autocomplete.class);
     }
 
+    public Flux<City> getCities() {
+        return webClient.method(HttpMethod.GET)
+                .uri(uriBuilder -> uriBuilder.path(dataProperties.getCities()).build())
+                .retrieve()
+                .bodyToFlux(City.class);
+    }
+
+    public Mono<City> getCity(final String code) {
+        return Mono.from(
+                webClient.method(HttpMethod.GET)
+                        .uri(uriBuilder -> uriBuilder.path(dataProperties.getCities()).build())
+                        .retrieve()
+                        .bodyToFlux(City.class)
+                        .filter(country -> country.getCode().equals(code)));
+    }
 }

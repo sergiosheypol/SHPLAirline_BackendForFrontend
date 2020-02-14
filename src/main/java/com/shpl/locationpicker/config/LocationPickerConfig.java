@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
-public class AirportsConfig {
+public class LocationPickerConfig {
 
     @Bean
-    public WebClient restTemplate(){
+    public WebClient restTemplate() {
         return WebClient.create("https://www.ryanair.com");
     }
 

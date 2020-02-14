@@ -24,7 +24,6 @@ type Country {
 
 type Autocomplete {
     code: String
-    name: String
     city: City
     country: Country
     coordinates: Coordinates
@@ -33,6 +32,7 @@ type Autocomplete {
 type City{
     code: String
     name: String
+    countryCode: String
 }
 
 type Query {
@@ -41,4 +41,6 @@ type Query {
     countries: [Country]
     country(code: String): Country
     autocomplete(phrase: String): [Autocomplete]
+    cities: [City]
+    city(code: String): City
 }

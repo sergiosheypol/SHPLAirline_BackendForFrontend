@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class City {
     private String code;
     private String name;
+    private String countryCode;
 }

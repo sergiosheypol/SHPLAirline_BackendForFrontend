@@ -1,4 +1,4 @@
-package com.shpl.locationpicker.query;
+package com.shpl.locationpicker.resolver;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
 import com.shpl.locationpicker.model.Airport;
