@@ -1,24 +1,24 @@
 package com.shpl.locationpicker.service;
 
 import com.shpl.locationpicker.model.Airport;
-import com.shpl.locationpicker.provider.AirportProvider;
+import com.shpl.locationpicker.provider.DataProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+//TODO Implement caching system
 public class AirportsService {
-    private final AirportProvider airportProvider;
+    private final DataProvider dataProvider;
 
-    public Flux<Airport> getAirports() {
-        return airportProvider.getAirports();
+    public List<Airport> getAirports() {
+        return dataProvider.getAirports().collectList().block();
     }
 
-    public Mono<Airport> getAirport(final String iataCode) {
-        return airportProvider.getAirport(iataCode);
+    public Airport getAirport(final String iataCode) {
+        return dataProvider.getAirport(iataCode).block();
     }
+
 }

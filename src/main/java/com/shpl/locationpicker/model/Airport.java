@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Builder
@@ -19,5 +20,6 @@ public class Airport {
     private String regionCode;
     private String cityCode;
     private String currencyCode;
+    private Map<String, String> coordinates;
     private List<String> routes;
 }

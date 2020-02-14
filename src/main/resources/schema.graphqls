@@ -6,10 +6,37 @@ type Airport {
     regionCode: String,
     cityCode: String,
     currencyCode: String,
+    coordinates: Coordinates
     routes: [String]
+}
+
+type Coordinates {
+    latitude: String
+    longitude: String
+}
+
+type Country {
+    code: String
+    name: String
+    currency: String
+    defaultAirportCode: String
+}
+
+type Autocomplete {
+    code: String
+    name: String
+    city: City
+}
+
+type City{
+    code: String
+    name: String
 }
 
 type Query {
     airports: [Airport]
     airport(iataCode: String): Airport
+    countries: [Country]
+    country(code: String): Country
+    autocomplete(phrase: String): [Autocomplete]
 }

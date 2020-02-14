@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @ConstructorBinding
-@ConfigurationProperties(prefix = "airports")
-public class AirportProperties {
-    private String endpoint;
+@ConfigurationProperties(prefix = "endpoints")
+public class DataProperties {
+    private String airports;
+    private String countries;
+    private String autocomplete;
 }
