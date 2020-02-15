@@ -1,14 +1,14 @@
-package com.shpl.locationpicker.resolver;
+package com.shpl.locations.resolver;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import com.shpl.locationpicker.model.Airport;
-import com.shpl.locationpicker.model.Autocomplete;
-import com.shpl.locationpicker.model.City;
-import com.shpl.locationpicker.model.Country;
-import com.shpl.locationpicker.service.AirportsService;
-import com.shpl.locationpicker.service.AutocompleteService;
-import com.shpl.locationpicker.service.CitiesService;
-import com.shpl.locationpicker.service.CountriesService;
+import com.shpl.locations.model.Airport;
+import com.shpl.locations.model.Autocomplete;
+import com.shpl.locations.model.City;
+import com.shpl.locations.model.Country;
+import com.shpl.locations.service.AirportsService;
+import com.shpl.locations.service.AutocompleteService;
+import com.shpl.locations.service.CitiesService;
+import com.shpl.locations.service.CountriesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

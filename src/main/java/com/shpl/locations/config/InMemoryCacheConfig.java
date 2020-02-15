@@ -1,11 +1,11 @@
-package com.shpl.locationpicker.config;
+package com.shpl.locations.config;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.shpl.locationpicker.cache.InMemoryCache;
-import com.shpl.locationpicker.model.Airport;
-import com.shpl.locationpicker.model.City;
-import com.shpl.locationpicker.model.Country;
+import com.shpl.locations.cache.InMemoryCache;
+import com.shpl.locations.model.Airport;
+import com.shpl.locations.model.City;
+import com.shpl.locations.model.Country;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

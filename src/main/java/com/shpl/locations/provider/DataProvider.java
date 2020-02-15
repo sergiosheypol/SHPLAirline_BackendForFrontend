@@ -1,12 +1,11 @@
-package com.shpl.locationpicker.provider;
+package com.shpl.locations.provider;
 
-import com.shpl.locationpicker.model.Airport;
-import com.shpl.locationpicker.model.Autocomplete;
-import com.shpl.locationpicker.model.City;
-import com.shpl.locationpicker.model.Country;
+import com.shpl.locations.model.Airport;
+import com.shpl.locations.model.Autocomplete;
+import com.shpl.locations.model.City;
+import com.shpl.locations.model.Country;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -16,7 +15,6 @@ import reactor.core.publisher.Mono;
 @Data
 @Service
 @RequiredArgsConstructor
-@EnableConfigurationProperties(DataProperties.class)
 public class DataProvider {
 
     private final DataProperties dataProperties;

@@ -1,8 +1,8 @@
-package com.shpl.locationpicker.service;
+package com.shpl.locations.service;
 
-import com.shpl.locationpicker.cache.InMemoryCache;
-import com.shpl.locationpicker.model.Country;
-import com.shpl.locationpicker.provider.DataProvider;
+import com.shpl.locations.cache.InMemoryCache;
+import com.shpl.locations.model.Country;
+import com.shpl.locations.provider.DataProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

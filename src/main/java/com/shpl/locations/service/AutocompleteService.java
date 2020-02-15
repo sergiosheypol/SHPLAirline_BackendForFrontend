@@ -1,7 +1,7 @@
-package com.shpl.locationpicker.service;
+package com.shpl.locations.service;
 
-import com.shpl.locationpicker.model.Autocomplete;
-import com.shpl.locationpicker.provider.DataProvider;
+import com.shpl.locations.model.Autocomplete;
+import com.shpl.locations.provider.DataProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

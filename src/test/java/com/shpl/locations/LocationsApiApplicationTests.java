@@ -1,10 +1,10 @@
-package com.shpl.locationpicker;
+package com.shpl.locations;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GraphqlTestApplicationTests {
+class LocationsApiApplicationTests {
 
 	@Test
 	void contextLoads() {

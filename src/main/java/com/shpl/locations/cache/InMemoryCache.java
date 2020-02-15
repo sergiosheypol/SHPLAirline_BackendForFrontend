@@ -1,4 +1,4 @@
-package com.shpl.locationpicker.cache;
+package com.shpl.locations.cache;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import lombok.RequiredArgsConstructor;

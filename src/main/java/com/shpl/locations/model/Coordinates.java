@@ -1,4 +1,4 @@
-package com.shpl.locationpicker.model;
+package com.shpl.locations.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class City {
-    private String code;
-    private String name;
-    private String countryCode;
+public class Coordinates {
+    private String latitude;
+    private String longitude;
 }

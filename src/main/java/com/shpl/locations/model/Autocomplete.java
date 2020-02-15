@@ -1,4 +1,4 @@
-package com.shpl.locationpicker.model;
+package com.shpl.locations.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

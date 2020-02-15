@@ -1,4 +1,4 @@
-package com.shpl.locationpicker.config;
+package com.shpl.locations.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

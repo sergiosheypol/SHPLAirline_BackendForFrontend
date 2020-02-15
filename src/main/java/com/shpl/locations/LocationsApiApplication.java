@@ -1,13 +1,13 @@
-package com.shpl.locationpicker;
+package com.shpl.locations;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GraphqlTestApplication {
+public class LocationsApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GraphqlTestApplication.class, args);
+		SpringApplication.run(LocationsApiApplication.class, args);
 	}
 
 }

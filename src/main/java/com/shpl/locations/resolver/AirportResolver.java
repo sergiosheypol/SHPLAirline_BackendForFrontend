@@ -1,8 +1,8 @@
-package com.shpl.locationpicker.resolver;
+package com.shpl.locations.resolver;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
-import com.shpl.locationpicker.model.Airport;
-import com.shpl.locationpicker.model.Coordinates;
+import com.shpl.locations.model.Airport;
+import com.shpl.locations.model.Coordinates;
 import org.springframework.stereotype.Component;
 
 @Component
