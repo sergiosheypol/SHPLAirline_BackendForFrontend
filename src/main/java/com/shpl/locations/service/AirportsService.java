@@ -3,51 +3,39 @@ package com.shpl.locations.service;
 import com.shpl.locations.cache.InMemoryCache;
 import com.shpl.locations.model.Airport;
 import com.shpl.locations.provider.DataProvider;
-import io.vavr.control.Option;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+
+import static java.util.Optional.ofNullable;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
-public class AirportsService {
-
-    private final DataProvider dataProvider;
-    private final InMemoryCache<String, Airport> airportInMemoryCache;
-
-
-
-    public List<Airport> getAirports() {
-        Option.of(airportInMemoryCache.getCacheMap())
-                .filter(Map::isEmpty)
-                .forEach(cacheMap -> new ArrayList<>(cacheMap.values()));
-
-        return dataProvider.getAirports().map(this::pushAirportToCache).collectList().block();
+public class AirportsService extends ServiceTemplate<Airport> {
+    public AirportsService(final DataProvider dataProvider, final InMemoryCache<String, Airport> inMemoryCache) {
+        super(dataProvider, inMemoryCache);
     }
 
-    public Airport getAirport(final String iataCode) {
-        return airportInMemoryCache
-                .get(iataCode)
-                .orElseGet(() -> populateCacheAndFind(iataCode));
+    @Override
+    ArrayList<Airport> getItemsFromProvider() {
+        return (ArrayList<Airport>) super.getDataProvider().getAirports()
+                .doOnEach(airportSignal ->
+                        ofNullable(airportSignal.get()).ifPresent(this::pushItemToCache))
+                .collectList()
+                .block();
     }
 
-
-    private Airport pushAirportToCache(Airport airport) {
-        return airportInMemoryCache
-                .get(airport.getIataCode())
-                .orElse(airportInMemoryCache
-                        .push(airport.getIataCode(), airport)
-                        .orElse(Airport.builder().build()));
+    @Override
+    void pushItemToCache(final Airport airport) {
+        super.getInMemoryCache().push(airport.getIataCode(), airport);
     }
 
-    private Airport populateCacheAndFind(String iataCode) {
-        log.info("Value for key '" + iataCode + "' was not cached");
-        getAirports();
-        return airportInMemoryCache.get(iataCode).orElse(Airport.builder().build());
+    @Override
+    Airport populateCacheAndFind(final String code) {
+        log.info("Value for key '" + code + "' is not cached");
+        getAll();
+        return super.getInMemoryCache().get(code).orElse(Airport.builder().build());
     }
+
 }

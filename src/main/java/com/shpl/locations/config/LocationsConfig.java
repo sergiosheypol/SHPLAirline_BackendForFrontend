@@ -1,6 +1,5 @@
 package com.shpl.locations.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shpl.locations.provider.DataProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +13,4 @@ public class LocationsConfig {
         return WebClient.create(dataProperties.getBase());
     }
 
-    @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
-    }
 }

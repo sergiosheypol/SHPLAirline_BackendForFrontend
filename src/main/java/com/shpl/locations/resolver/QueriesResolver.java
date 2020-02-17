@@ -24,31 +24,31 @@ public class QueriesResolver implements GraphQLQueryResolver {
     private final CitiesService citiesService;
 
     public List<Airport> getAirports() {
-        return airportsService.getAirports();
+        return airportsService.getAll();
     }
 
     public Airport getAirport(final String iataCode) {
-        return airportsService.getAirport(iataCode);
+        return airportsService.getOne(iataCode);
     }
 
     public List<Country> getCountries() {
-        return countriesService.getCountries();
+        return countriesService.getAll();
     }
 
     public Country getCountry(final String code) {
-        return countriesService.getCountry(code);
+        return countriesService.getOne(code);
+    }
+
+    public List<City> getCities() {
+        return citiesService.getAll();
+    }
+
+    public City getCity(final String code) {
+        return citiesService.getOne(code);
     }
 
     public List<Autocomplete> getAutocomplete(final String phrase) {
         return autocompleteService.getAutocomplete(phrase);
-    }
-
-    public List<City> getCities() {
-        return citiesService.getCities();
-    }
-
-    public City getCity(final String code) {
-        return citiesService.getCity(code);
     }
 
 

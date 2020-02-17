@@ -3,50 +3,39 @@ package com.shpl.locations.service;
 import com.shpl.locations.cache.InMemoryCache;
 import com.shpl.locations.model.Country;
 import com.shpl.locations.provider.DataProvider;
-import io.vavr.control.Option;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+
+import static java.util.Optional.ofNullable;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
-public class CountriesService {
-
-    private final DataProvider dataProvider;
-    private final InMemoryCache<String, Country> countryInMemoryCache;
-
-    public List<Country> getCountries() {
-
-        Option.of(countryInMemoryCache.getCacheMap())
-            .filter(Map::isEmpty)
-            .forEach(cacheMap -> new ArrayList<>(cacheMap.values()));
-
-        return dataProvider.getCountries().map(this::pushCountryToCache).collectList().block();
-
+public class CountriesService extends ServiceTemplate<Country> {
+    
+    public CountriesService(final DataProvider dataProvider, final InMemoryCache<String, Country> inMemoryCache) {
+        super(dataProvider, inMemoryCache);
     }
 
-    public Country getCountry(final String code) {
-        return countryInMemoryCache
-                .get(code)
-                .orElseGet(() -> populateCacheAndFind(code));
+    @Override
+    ArrayList<Country> getItemsFromProvider() {
+        return (ArrayList<Country>) super.getDataProvider().getCountries()
+                .doOnEach(countrySignal ->
+                        ofNullable(countrySignal.get()).ifPresent(this::pushItemToCache))
+                .collectList()
+                .block();
     }
 
-    private Country pushCountryToCache(Country country) {
-        return countryInMemoryCache
-                .get(country.getCode())
-                .orElse(countryInMemoryCache
-                        .push(country.getCode(), country)
-                        .orElse(Country.builder().build()));
+    @Override
+    void pushItemToCache(final Country country) {
+        super.getInMemoryCache().push(country.getCode(), country);
     }
 
-    private Country populateCacheAndFind(String code) {
+    @Override
+    Country populateCacheAndFind(final String code) {
         log.info("Value for key '" + code + "' was not cached");
-        getCountries();
-        return countryInMemoryCache.get(code).orElse(Country.builder().build());
+        getAll();
+        return super.getInMemoryCache().get(code).orElse(Country.builder().build());
     }
 }

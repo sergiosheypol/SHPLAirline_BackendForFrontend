@@ -18,11 +18,11 @@ public class AutocompleteResolver implements GraphQLResolver<Autocomplete> {
     private final CitiesService citiesService;
 
     public City getCity(Autocomplete autocomplete) {
-        return citiesService.getCity(autocomplete.getCity().get("code"));
+        return citiesService.getOne(autocomplete.getCity().get("code"));
     }
 
     public Country getCountry(Autocomplete autocomplete) {
-        return countriesService.getCountry(autocomplete.getCountry().get("code"));
+        return countriesService.getOne(autocomplete.getCountry().get("code"));
     }
 
     public Coordinates getCoordinates(Autocomplete autocomplete) {

@@ -10,7 +10,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 @Data
 @Service
@@ -35,7 +34,6 @@ public class DataProvider {
     }
 
     public Flux<Autocomplete> getAutocomplete(final String phrase) {
-
         return webClient.method(HttpMethod.GET)
                 .uri(uriBuilder -> uriBuilder
                         .path(dataProperties.getAutocomplete())

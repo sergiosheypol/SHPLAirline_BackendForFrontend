@@ -3,47 +3,38 @@ package com.shpl.locations.service;
 import com.shpl.locations.cache.InMemoryCache;
 import com.shpl.locations.model.City;
 import com.shpl.locations.provider.DataProvider;
-import io.vavr.control.Option;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+
+import static java.util.Optional.ofNullable;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
-public class CitiesService {
-    private final DataProvider dataProvider;
-    private final InMemoryCache<String, City> cityInMemoryCache;
-
-    public List<City> getCities() {
-        Option.of(cityInMemoryCache.getCacheMap())
-                .filter(Map::isEmpty)
-                .forEach(cacheMap -> new ArrayList<>(cacheMap.values()));
-
-        return dataProvider.getCities().map(this::pushCityToCache).collectList().block();
+public class CitiesService extends ServiceTemplate<City> {
+    public CitiesService(final DataProvider dataProvider, final InMemoryCache<String, City> cityInMemoryCache) {
+        super(dataProvider, cityInMemoryCache);
     }
 
-    public City getCity(final String code) {
-        return cityInMemoryCache
-                .get(code)
-                .orElseGet(() -> populateCacheAndFind(code));
+    @Override
+    ArrayList<City> getItemsFromProvider() {
+        return (ArrayList<City>) super.getDataProvider().getCities()
+                .doOnEach(citySignal ->
+                        ofNullable(citySignal.get()).ifPresent(this::pushItemToCache))
+                .collectList()
+                .block();
     }
 
-    private City pushCityToCache(City city) {
-        return cityInMemoryCache
-                .get(city.getCode())
-                .orElse(cityInMemoryCache
-                        .push(city.getCode(), city)
-                        .orElse(City.builder().build()));
+    @Override
+    void pushItemToCache(final City city) {
+        super.getInMemoryCache().push(city.getCode(), city);
     }
 
-    private City populateCacheAndFind(String code) {
+    @Override
+    City populateCacheAndFind(final String code) {
         log.info("Value for key '" + code + "' was not cached");
-        getCities();
-        return cityInMemoryCache.get(code).orElse(City.builder().build());
+        getAll();
+        return super.getInMemoryCache().get(code).orElse(City.builder().build());
     }
 }
