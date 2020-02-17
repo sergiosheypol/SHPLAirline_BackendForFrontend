@@ -33,7 +33,12 @@
 			<artifactId>reactor-core</artifactId>
 			<version>3.3.2.RELEASE</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/io.vavr/vavr -->
+		<dependency>
+			<groupId>io.vavr</groupId>
+			<artifactId>vavr</artifactId>
+			<version>0.10.2</version>
+		</dependency>
 		<dependency>
 			<groupId>com.graphql-java</groupId>
 			<artifactId>graphql-spring-boot-starter</artifactId>

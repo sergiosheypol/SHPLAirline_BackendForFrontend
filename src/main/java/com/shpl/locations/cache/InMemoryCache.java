@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
+import java.util.concurrent.ConcurrentMap;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -20,14 +21,21 @@ public class InMemoryCache<K, V> {
         }
     }
 
+    public ConcurrentMap<K,V> getCacheMap() {
+        return cache.asMap();
+    }
+
     public Optional<V> get(K key) {
         return Optional.ofNullable(cache.getIfPresent(key));
     }
 
     public Optional<V> push(K key, V value) {
+
         return Optional.ofNullable(cache.get(key, k -> {
-            log.info("Value with key '" + key + "' is not cached");
+            log.info("Value with key '" + key + "' will be cached");
             return value;
         }));
     }
+
+
 }

@@ -27,30 +27,11 @@ public class DataProvider {
                 .bodyToFlux(Airport.class);
     }
 
-    public Mono<Airport> getAirport(final String iataCode) {
-        return Mono.from(
-                webClient.method(HttpMethod.GET)
-                        .uri(uriBuilder -> uriBuilder.path(dataProperties.getAirports()).build())
-                        .retrieve()
-                        .bodyToFlux(Airport.class)
-                        .filter(airport -> airport.getIataCode().equals(iataCode)));
-
-    }
-
     public Flux<Country> getCountries() {
         return webClient.method(HttpMethod.GET)
                 .uri(uriBuilder -> uriBuilder.path(dataProperties.getCountries()).build())
                 .retrieve()
                 .bodyToFlux(Country.class);
-    }
-
-    public Mono<Country> getCountry(final String code) {
-        return Mono.from(
-                webClient.method(HttpMethod.GET)
-                        .uri(uriBuilder -> uriBuilder.path(dataProperties.getCountries()).build())
-                        .retrieve()
-                        .bodyToFlux(Country.class)
-                        .filter(country -> country.getCode().equals(code)));
     }
 
     public Flux<Autocomplete> getAutocomplete(final String phrase) {
@@ -69,14 +50,5 @@ public class DataProvider {
                 .uri(uriBuilder -> uriBuilder.path(dataProperties.getCities()).build())
                 .retrieve()
                 .bodyToFlux(City.class);
-    }
-
-    public Mono<City> getCity(final String code) {
-        return Mono.from(
-                webClient.method(HttpMethod.GET)
-                        .uri(uriBuilder -> uriBuilder.path(dataProperties.getCities()).build())
-                        .retrieve()
-                        .bodyToFlux(City.class)
-                        .filter(country -> country.getCode().equals(code)));
     }
 }
