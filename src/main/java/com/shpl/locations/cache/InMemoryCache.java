@@ -22,18 +22,18 @@ public class InMemoryCache<K, V> {
     }
 
     public ConcurrentMap<K,V> getCacheMap() {
-        log.info("Retrieving entire cache");
+        log.debug("Retrieving entire cache");
         return cache.asMap();
     }
 
     public Optional<V> get(K key) {
-        log.info("Retrieving '" + key + "' from cache");
+        log.info("Searching for '" + key + "' in cache");
         return Optional.ofNullable(cache.getIfPresent(key));
     }
 
     public Optional<V> push(K key, V value) {
         return Optional.ofNullable(cache.get(key, k -> {
-            log.info("Value with key '" + key + "' will be cached");
+            log.debug("Value with key '" + key + "' will be cached");
             return value;
         }));
     }

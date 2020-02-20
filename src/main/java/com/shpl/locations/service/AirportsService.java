@@ -5,10 +5,7 @@ import com.shpl.locations.model.Airport;
 import com.shpl.locations.provider.DataProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-
-import static java.util.Optional.ofNullable;
+import reactor.core.publisher.Flux;
 
 @Slf4j
 @Service
@@ -18,24 +15,17 @@ public class AirportsService extends ServiceTemplate<Airport> {
     }
 
     @Override
-    ArrayList<Airport> getItemsFromProvider() {
-        return (ArrayList<Airport>) super.getDataProvider().getAirports()
-                .doOnEach(airportSignal ->
-                        ofNullable(airportSignal.get()).ifPresent(this::pushItemToCache))
-                .collectList()
-                .block();
+    Flux<Airport> getDataFromProvider() {
+        return super.getDataProvider().getAirports();
     }
 
     @Override
-    void pushItemToCache(final Airport airport) {
-        super.getInMemoryCache().push(airport.getIataCode(), airport);
+    Airport getEmptyObject() {
+        return Airport.builder().build();
     }
 
     @Override
-    Airport populateCacheAndFind(final String code) {
-        log.info("Value for key '" + code + "' is not cached");
-        getAll();
-        return super.getInMemoryCache().get(code).orElse(Airport.builder().build());
+    String getCacheCode(final Airport airport) {
+        return airport.getIataCode();
     }
-
 }

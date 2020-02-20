@@ -6,10 +6,13 @@ import io.vavr.control.Option;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Flux;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static java.util.Optional.ofNullable;
 
 @Slf4j
 @Getter
@@ -27,15 +30,36 @@ public abstract class ServiceTemplate<V> {
     }
 
     public V getOne(final String code) {
-        return inMemoryCache
-                .get(code)
-                .orElseGet(() -> populateCacheAndFind(code));
+
+        return Option.of(inMemoryCache.getCacheMap())
+                .filter(map -> !map.isEmpty())
+                .map(__ -> inMemoryCache.get(code).orElse(getEmptyObject()))
+                .getOrElse(() -> populateCacheAndFind(code));
     }
 
-    abstract ArrayList<V> getItemsFromProvider();
+    public ArrayList<V> getItemsFromProvider() {
+        return (ArrayList<V>) getDataFromProvider()
+                .doOnEach(signal ->
+                        ofNullable(signal.get()).ifPresent(this::pushItemToCache))
+                .collectList()
+                .block();
+    }
 
-    abstract void pushItemToCache(V v);
+    public void pushItemToCache(V v) {
+        inMemoryCache.push(getCacheCode(v), v);
+    }
 
-    abstract V populateCacheAndFind(String code);
+    public V populateCacheAndFind(String code) {
+        log.info("Value for key '" + code + "' is not cached");
+        getAll();
+        log.info("Cache is now populated");
+        return inMemoryCache.get(code).orElse(getEmptyObject());
+    }
+
+    abstract V getEmptyObject();
+
+    abstract Flux<V> getDataFromProvider();
+
+    abstract String getCacheCode(V v);
 
 }

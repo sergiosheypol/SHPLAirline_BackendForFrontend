@@ -5,10 +5,7 @@ import com.shpl.locations.model.Country;
 import com.shpl.locations.provider.DataProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-
-import static java.util.Optional.ofNullable;
+import reactor.core.publisher.Flux;
 
 @Slf4j
 @Service
@@ -19,23 +16,17 @@ public class CountriesService extends ServiceTemplate<Country> {
     }
 
     @Override
-    ArrayList<Country> getItemsFromProvider() {
-        return (ArrayList<Country>) super.getDataProvider().getCountries()
-                .doOnEach(countrySignal ->
-                        ofNullable(countrySignal.get()).ifPresent(this::pushItemToCache))
-                .collectList()
-                .block();
+    Flux<Country> getDataFromProvider() {
+        return super.getDataProvider().getCountries();
     }
 
     @Override
-    void pushItemToCache(final Country country) {
-        super.getInMemoryCache().push(country.getCode(), country);
+    Country getEmptyObject() {
+        return Country.builder().build();
     }
 
     @Override
-    Country populateCacheAndFind(final String code) {
-        log.info("Value for key '" + code + "' was not cached");
-        getAll();
-        return super.getInMemoryCache().get(code).orElse(Country.builder().build());
+    String getCacheCode(final Country country) {
+        return country.getCode();
     }
 }

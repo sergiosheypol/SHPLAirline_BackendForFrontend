@@ -5,10 +5,7 @@ import com.shpl.locations.model.City;
 import com.shpl.locations.provider.DataProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-
-import static java.util.Optional.ofNullable;
+import reactor.core.publisher.Flux;
 
 @Slf4j
 @Service
@@ -18,23 +15,17 @@ public class CitiesService extends ServiceTemplate<City> {
     }
 
     @Override
-    ArrayList<City> getItemsFromProvider() {
-        return (ArrayList<City>) super.getDataProvider().getCities()
-                .doOnEach(citySignal ->
-                        ofNullable(citySignal.get()).ifPresent(this::pushItemToCache))
-                .collectList()
-                .block();
+    Flux<City> getDataFromProvider() {
+        return super.getDataProvider().getCities();
     }
 
     @Override
-    void pushItemToCache(final City city) {
-        super.getInMemoryCache().push(city.getCode(), city);
+    City getEmptyObject() {
+        return City.builder().build();
     }
 
     @Override
-    City populateCacheAndFind(final String code) {
-        log.info("Value for key '" + code + "' was not cached");
-        getAll();
-        return super.getInMemoryCache().get(code).orElse(City.builder().build());
+    String getCacheCode(final City city) {
+        return city.getCode();
     }
 }
