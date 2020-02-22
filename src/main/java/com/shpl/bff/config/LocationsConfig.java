@@ -1,6 +1,6 @@
-package com.shpl.locations.config;
+package com.shpl.bff.config;
 
-import com.shpl.locations.provider.DataProperties;
+import com.shpl.bff.provider.DataProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;

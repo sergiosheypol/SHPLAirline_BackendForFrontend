@@ -1,4 +1,4 @@
-package com.shpl.locations.provider;
+package com.shpl.bff.provider;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -15,4 +15,5 @@ public class DataProperties {
     private String countries;
     private String autocomplete;
     private String cities;
+    private String singleFares;
 }

@@ -1,4 +1,4 @@
-package com.shpl.locations.config;
+package com.shpl.bff.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

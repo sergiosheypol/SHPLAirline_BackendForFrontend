@@ -1,4 +1,4 @@
-package com.shpl.locations.model;
+package com.shpl.bff.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

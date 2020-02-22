@@ -35,6 +35,34 @@ type City{
     countryCode: String
 }
 
+type Fare {
+    flightNumber: String
+    departureAirport: String
+    arrivalAirport: String
+    connectingAirport: String
+    departureDate: String
+    arrivalDate: String
+    price: Price
+}
+
+type Price {
+    base: PriceItem
+    adjustment: PriceItem
+}
+
+type PriceItem {
+    currencyCode: String
+    value: String
+}
+
+input FarefinderDto {
+    departureDateFrom: String
+    departureDateTo: String
+    arrivalAirport: String
+    departureAirport: String
+    currencyCode: String
+}
+
 type Query {
     airports: [Airport]
     airport(iataCode: String): Airport
@@ -43,4 +71,5 @@ type Query {
     autocomplete(phrase: String): [Autocomplete]
     cities: [City]
     city(code: String): City
+    fares(dto: FarefinderDto): [Fare]
 }

@@ -1,9 +1,11 @@
-package com.shpl.locations.provider;
+package com.shpl.bff.provider;
 
-import com.shpl.locations.model.Airport;
-import com.shpl.locations.model.Autocomplete;
-import com.shpl.locations.model.City;
-import com.shpl.locations.model.Country;
+import com.shpl.bff.dto.FarefinderBffDto;
+import com.shpl.bff.model.Airport;
+import com.shpl.bff.model.Autocomplete;
+import com.shpl.bff.model.City;
+import com.shpl.bff.model.Country;
+import com.shpl.bff.model.Fare;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
@@ -48,5 +50,20 @@ public class DataProvider {
                 .uri(uriBuilder -> uriBuilder.path(dataProperties.getCities()).build())
                 .retrieve()
                 .bodyToFlux(City.class);
+    }
+
+    public Flux<Fare> getFares(final FarefinderBffDto farefinderBffDto) {
+
+        return webClient.method(HttpMethod.GET)
+                .uri(uriBuilder -> uriBuilder
+                        .path(dataProperties.getSingleFares())
+                        .queryParam("departureDateFrom", farefinderBffDto.getDepartureDateFrom())
+                        .queryParam("departureAirport", farefinderBffDto.getDepartureAirport())
+                        .queryParam("arrivalAirport", farefinderBffDto.getArrivalAirport())
+                        .queryParam("departureDateTo", farefinderBffDto.getDepartureDateTo())
+                        .queryParam("currencyCode", farefinderBffDto.getCurrencyCode())
+                        .build())
+                .retrieve()
+                .bodyToFlux(Fare.class);
     }
 }

@@ -1,14 +1,17 @@
-package com.shpl.locations.resolver;
+package com.shpl.bff.resolver;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import com.shpl.locations.model.Airport;
-import com.shpl.locations.model.Autocomplete;
-import com.shpl.locations.model.City;
-import com.shpl.locations.model.Country;
-import com.shpl.locations.service.AirportsService;
-import com.shpl.locations.service.AutocompleteService;
-import com.shpl.locations.service.CitiesService;
-import com.shpl.locations.service.CountriesService;
+import com.shpl.bff.dto.FarefinderBffDto;
+import com.shpl.bff.model.Airport;
+import com.shpl.bff.model.Autocomplete;
+import com.shpl.bff.model.City;
+import com.shpl.bff.model.Country;
+import com.shpl.bff.model.Fare;
+import com.shpl.bff.service.AirportsService;
+import com.shpl.bff.service.AutocompleteService;
+import com.shpl.bff.service.CitiesService;
+import com.shpl.bff.service.CountriesService;
+import com.shpl.bff.service.FareService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +25,8 @@ public class QueriesResolver implements GraphQLQueryResolver {
     private final CountriesService countriesService;
     private final AutocompleteService autocompleteService;
     private final CitiesService citiesService;
+    private final FareService fareService;
+
 
     public List<Airport> getAirports() {
         return airportsService.getAll();
@@ -49,6 +54,10 @@ public class QueriesResolver implements GraphQLQueryResolver {
 
     public List<Autocomplete> getAutocomplete(final String phrase) {
         return autocompleteService.getAutocomplete(phrase);
+    }
+
+    public List<Fare> getFares(FarefinderBffDto farefinderBffDto) {
+        return fareService.getFares(farefinderBffDto).collectList().block();
     }
 
 

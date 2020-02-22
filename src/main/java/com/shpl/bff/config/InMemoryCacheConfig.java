@@ -1,11 +1,11 @@
-package com.shpl.locations.config;
+package com.shpl.bff.config;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import com.shpl.locations.cache.InMemoryCache;
-import com.shpl.locations.model.Airport;
-import com.shpl.locations.model.City;
-import com.shpl.locations.model.Country;
+import com.shpl.bff.cache.InMemoryCache;
+import com.shpl.bff.model.Airport;
+import com.shpl.bff.model.City;
+import com.shpl.bff.model.Country;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

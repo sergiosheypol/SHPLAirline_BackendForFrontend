@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.shpl</groupId>
-	<artifactId>locations</artifactId>
+	<artifactId>bff</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>locations-api</name>
-	<description>Retrieve the info from location backend to iOS frontend</description>
+	<name>SHPL-BFF</name>
+	<description>Retrieve the info from Ryanair backend to iOS frontend</description>
 
 	<properties>
 		<java.version>11</java.version>

@@ -1,8 +1,8 @@
-package com.shpl.locations.service;
+package com.shpl.bff.service;
 
-import com.shpl.locations.cache.InMemoryCache;
-import com.shpl.locations.model.City;
-import com.shpl.locations.provider.DataProvider;
+import com.shpl.bff.cache.InMemoryCache;
+import com.shpl.bff.model.City;
+import com.shpl.bff.provider.DataProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

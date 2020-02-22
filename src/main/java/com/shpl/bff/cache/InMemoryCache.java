@@ -1,4 +1,4 @@
-package com.shpl.locations.cache;
+package com.shpl.bff.cache;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,14 @@ public class InMemoryCache<K, V> {
         }
     }
 
-    public ConcurrentMap<K,V> getCacheMap() {
+    public void invalidate() {
+        if (enabled) {
+            log.info("Invalidating in-memory cache");
+            cache.invalidateAll();
+        }
+    }
+
+    public ConcurrentMap<K, V> getCacheMap() {
         log.debug("Retrieving entire cache");
         return cache.asMap();
     }

@@ -1,13 +1,13 @@
-package com.shpl.locations;
+package com.shpl.bff;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LocationsApiApplication {
+public class ShplBffApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LocationsApiApplication.class, args);
+		SpringApplication.run(ShplBffApplication.class, args);
 	}
 
 }
