@@ -36,6 +36,7 @@ type City{
 }
 
 type Fare {
+    flightKey: String
     flightNumber: String
     departureAirport: String
     arrivalAirport: String

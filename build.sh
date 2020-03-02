@@ -1,1 +1,1 @@
-docker build -t locations-bff:local .
+docker build -t shpl-bff:local .

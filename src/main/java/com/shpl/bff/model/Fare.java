@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Fare {
+    private String flightKey;
     private String flightNumber;
     private String departureAirport;
     private String arrivalAirport;
