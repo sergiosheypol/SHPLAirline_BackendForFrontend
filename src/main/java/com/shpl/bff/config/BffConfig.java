@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
-public class LocationsConfig {
+public class BffConfig {
 
     @Bean
-    public WebClient restTemplate(DataProperties dataProperties) {
+    public WebClient webClient(DataProperties dataProperties) {
         return WebClient.create(dataProperties.getBase());
     }
 
