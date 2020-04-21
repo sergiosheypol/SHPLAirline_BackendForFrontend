@@ -19,7 +19,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class QueriesResolver implements GraphQLQueryResolver {
+public class ShplResolver implements GraphQLQueryResolver {
 
     private final AirportsService airportsService;
     private final CountriesService countriesService;

@@ -1,4 +1,4 @@
-package com.shpl.bff.resolver;
+package com.shpl.bff.resolver.custom;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
 import com.shpl.bff.model.Autocomplete;
